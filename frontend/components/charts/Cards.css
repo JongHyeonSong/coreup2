@@ -1,0 +1,14 @@
+#infected{
+    background-color: rgba(0,0,255, 0.09);
+    border-bottom: 10px solid rgba(0,0,255, 0.5);
+}
+
+#recovered{
+    background-color: rgba(0,255,0, 0.09);
+    border-bottom: 10px solid rgba(0,255,0, 0.5);
+}
+
+#deaths{
+    background-color: rgba(255,0,0, 0.09);
+    border-bottom: 10px solid rgba(255,0,0, 0.5);
+}
