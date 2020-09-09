@@ -50,6 +50,7 @@ const CommentForm = ()=>{
     }
     return(
         <>
+        { userProfile.id ?
         <div className="d-flex flex-justify-center">
         <div className="col-6 container" style={{backgroundColor:'red'}}>
             <form onSubmit={handleOnSubmit} >
@@ -59,7 +60,8 @@ const CommentForm = ()=>{
             </form>
         </div>
         </div>
-        
+        : <h1>login plz</h1>
+        }
         </>
     )
 }

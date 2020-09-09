@@ -47,8 +47,8 @@ const Chart = ()=>{
         : <h1>loading...</h1>
     )
     return(
-        <div className="row flex-justify-center">
-            <div className="col-8">
+        <div className="row d-flex justify-content-center">
+            <div className="form-control col-6 mt-0">
             {country ?barChart :lineChart}
 
             </div>

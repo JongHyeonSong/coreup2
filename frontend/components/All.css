@@ -1,0 +1,13 @@
+
+
+.main-nav:hover{
+    color:tomato;
+}
+
+.main-nav-active{
+    color:tomato;
+}
+
+/* .nav-margin{
+    margin:10px;
+} */

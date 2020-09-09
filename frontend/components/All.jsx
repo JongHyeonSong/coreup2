@@ -3,7 +3,8 @@ import Nav from './Nav';
 import AllCharts from './charts/AllCharts';
 import AllComments from './comments/AllComments';
 import { BrowserRouter, Route } from 'react-router-dom';
-
+import CountryPicker from './charts/COuntryPicker';
+import './All.css';
 // 명령어
 export const GET_USER = 'GET_USER'
 export const GET_COUNTRIES = 'GET_COUNTRIES'
@@ -103,7 +104,9 @@ const All = ({username, userid})=>{
         .then(res=>res.json())
         .then(data=>{
             // console.log(data.countries[0].name)
-            const countries = data.countries.map(item=>item.name)
+            // const countries = data.countries.map(item=>item.name)
+            // console.log(countries[0])
+            const countries = ['Japan', 'China']
             dispatch({type:GET_COUNTRIES, countries:countries})
         })
     },[])
@@ -150,14 +153,15 @@ const All = ({username, userid})=>{
     return(
         <BrowserRouter>
         <countryContext.Provider value={value}>
+
         <Nav/>
+        <CountryPicker/>
         <div>root계정 유저명: {username} 유저번호: {userid}</div>
         <div>스테이트 계정 유저명: {state.userProfile.profile_name} 유저번호: {state.userProfile.id} 국가: {state.userProfile.user_nation}</div>
 
-        <Route path = "/chart" render={()=> <AllCharts/>} />
         <Route path = "/comment" render={()=> <AllComments/>} />
-        {/* <AllCharts/>
-        <AllComments /> */}
+        <Route path = "/chart" render={()=> <AllCharts/>} />
+
         </countryContext.Provider>
         </BrowserRouter>
     )

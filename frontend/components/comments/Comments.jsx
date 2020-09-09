@@ -4,6 +4,8 @@ import './Comments.css';
 import { FaBeer } from 'react-icons/fa';
 
 const Comment = ({ comment }) => {
+
+
     return (
     <>
     <div className="d-flex ">
@@ -33,7 +35,8 @@ const Comments = () => {
     return (
         <>
             <hr />
-            {comments.map((comment, i) => <Comment comment={comment} key={i} />)}
+            { country ? comments.map((comment, i) => <Comment comment={comment} key={i} />)
+            : <img src="/static/images/global_img.jpg" alt="global img"/> }
         </>
     )
 }

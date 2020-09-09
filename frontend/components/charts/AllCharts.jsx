@@ -6,7 +6,7 @@ import CountryPicker from './COuntryPicker';
 const AllCharts = () =>{
     return(
         <>
-        <CountryPicker/>
+        {/* <CountryPicker/> */}
         <Cards/>
         <Chart/>
         </>
