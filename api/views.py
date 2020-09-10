@@ -1,17 +1,17 @@
 from django.shortcuts import render
-
+from rest_framework import status
 
 
 # 내가 만든거
 from .models import UserProfile, Comment, Country
-from .serializers import UserProfileSerializer, CommentSerializer
+from .serializers import UserProfileSerializer, CommentSerializer, CommentThumbUpSerializer
 
 
 # RDF
 from rest_framework.parsers import JSONParser, MultiPartParser, FormParser, FileUploadParser
 from rest_framework.response import Response
 from rest_framework import viewsets, permissions
-
+from rest_framework.decorators import api_view
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
@@ -40,9 +40,13 @@ class CommentViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         print('get aquset @@')
         country = self.request.GET.get("country") or None
+        comment_pk = self.request.GET.get("comment_pk") or None
         qs = super().get_queryset()
         if country:
             qs = qs.filter(comment_country__name__iexact= country)
+        if comment_pk:
+            qs = qs.filter(id=comment_pk)
+
         return qs
    
     def post(self, request, *args, **kwargs):
@@ -64,10 +68,62 @@ class CommentViewSet(viewsets.ModelViewSet):
             print("안유효")
         return Response({"post create comment": "succ"}, status=200)
 
+    # def create(self, request, *args, **kwargs):
+    #     print('creating@@')
+    #     print(request.data, args, kwargs)
+    #     countryBack = request.data['comment_country']
+    #     print('타입체크 ', type(countryBack))
+    #     request.data['comment_country'] = str(Country.objects.filter(name=countryBack).first().id) or '1'
+    #     return super().create(request, *args, **kwargs)
+
+
+
+    # def create(self, request):   //파일떄문에 -committed 에러난다
+    #     print('create에 들어왔슴')
+    #     print(request.data)
+    #     obj = Comment.objects.create(**request.data)
+    #     obj.user_profile = request.user.userprofile
+    #     obj.comment_country = Country.objects.all().first()
+    #     obj.save()
+    #     return Response({}, status=200)
+
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     if serializer.is_valid(raise_exception=True):
+    #         print('vaild')
+    #         serializer.user_profile = UserProfile.objects.all().first()
+    #         serializer.comment_country=Country.objects.all().first()
+    #         serializer.save()
+    #     else:
+    #         print("no vaild")
+    #     return Response(serializer.data)
+        
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
     def create(self, request, *args, **kwargs):
-        print('creating@@')
-        print(request.data, args, kwargs)
+        serializer = self.get_serializer(data=request.data)
+        #포린키 추가
+        print(request.data)
         countryBack = request.data['comment_country']
-        print('타입체크 ', type(countryBack))
-        request.data['comment_country'] = str(Country.objects.filter(name=countryBack).first().id) or '1'
-        return super().create(request, *args, **kwargs)
+        request.data['comment_country'] =str(Country.objects.filter(name=countryBack).first().id)
+
+        tep_serializer = UserProfileSerializer(instance=request.user.userprofile)
+        print(tep_serializer.data)
+        request.data['user_profile'] = str(Country.objects.filter(name=countryBack).first().id)
+
+        #여기서부터 에러남 
+        print(request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+   
+# class CommentThumbUpViewSet(viewsets.ModelViewSet): 
+#     queryset = Comment.objects.all()
+#     serializer_class = CommentThumbUpSerializer
+#     permissions_classes = [permissions.IsAuthenticated]
+
+#     # parser_classes = (FormParser,MultiPartParser,FileUploadParser,JSONParser) #FormParser,MultiPartParser,FileUploadParser,JSONParser
+

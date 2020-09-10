@@ -28,6 +28,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'comment', views.CommentViewSet)
 router.register(r'user_profile', views.UserProfileViewSet)
+router.register(r'comment_thumup', views.CommentThumbUpViewSet)
 
 
 urlpatterns = [

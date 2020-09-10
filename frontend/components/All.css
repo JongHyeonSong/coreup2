@@ -8,6 +8,17 @@
     color:tomato;
 }
 
-/* .nav-margin{
-    margin:10px;
-} */
+
+.profile-img{
+    width:100%;
+    height:200px;
+    border-radius: 30px;
+}
+
+.comment-img{
+    width:100%;
+    height:300px;
+}
+
+
+

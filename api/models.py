@@ -14,7 +14,7 @@ class Country(models.Model):
         ordering=["-id"]
 
 class UserProfile(models.Model):
-    CATEGORY=( ('mail', 'mail'),('femail', 'femail'),)
+    CATEGORY=( ('male', 'male'),('female', 'female'),)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     images = models.ImageField(null=True, blank=True)
@@ -32,7 +32,7 @@ post_save.connect(user_did_save, sender=User)
 
 
 class Comment(models.Model):
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE )
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     comment = models.CharField(max_length=200)
     image = models.ImageField(null=True, blank=True)
     comment_country = models.ForeignKey(Country, models.CASCADE, null=True)

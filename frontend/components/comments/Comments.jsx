@@ -5,26 +5,32 @@ import { FaBeer } from 'react-icons/fa';
 
 const Comment = ({ comment }) => {
 
+    // console.log(comment)
 
     return (
     <>
     <div className="d-flex ">
-        <div className="col-4 container" >
+        <div className="col-6 container" >
             <div className="card ">
-                <div className="comment-img" >
-                    <img className="card-img-top" src={comment.image || "static/images/coroan.png"} alt="Card image" />
+                <div className="" >
+                    <img className="card-img-top comment-img" src={comment.image || "static/images/coroan.png"} alt="Card image" />
                 </div>
                 <div className="card-body bg-light">
-                    {comment.comment}
                     <FaBeer />
-                    {/* {comment.image || 'no url'} */}
+                    할말: {comment.comment}<br/>
+                    
+                    이거 쓴사람: {comment.comment_username}<br/>
+                    생성일자: {comment.created_at}<br/>
+                    좋아요: {comment.likes_count}<br/>
+                    싫어요: {comment.unlikes_count}<br/>
+
                 </div>
 
             </div>
         </div>
 
     </div>
-
+        <br/>
     </>
     )
 }

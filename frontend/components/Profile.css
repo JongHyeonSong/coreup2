@@ -1,0 +1,47 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background : #f1f1f1;
+
+}
+
+.card-container{
+    width: 300px;
+    height: 430px;
+    background: #FFF;
+    border-radius:  6px;
+    position: fixed;
+    top: 35%;
+    left: 5%; 
+    /* transform: translate(-50%,-50%);  */
+    box-shadow: 0px 1px 10px 1px #000;
+}
+
+.upper-container{
+    height: 150px;
+    background: #d193c4;
+}
+
+.image-container {
+    background: #fff;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+
+    transform: translate(70px, 70px)
+
+}
+.image-container img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.lower-container{
+    height: 280px;
+    background: #c9c9c9;
+}
+

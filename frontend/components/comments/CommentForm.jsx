@@ -25,13 +25,15 @@ const CommentForm = ()=>{
 
     const handleOnSubmit =(e)=>{
         e.preventDefault()
+        if(!country){ alert('희망하는 국가'); return;}
+
         console.log("submit.....")
 
         const url = `http://127.0.0.1:8000/api/comment/`
         const uploadData = new FormData();
         uploadData.append('comment', text)
         uploadData.append('image', image, image.name )
-        uploadData.append('user_profile', userProfile.id) //현재유저
+        // uploadData.append('user_profile', userProfile.id) //현재유저
         uploadData.append('comment_country',country )  //중국 일단고정
 
         fetch(url,{
@@ -48,20 +50,26 @@ const CommentForm = ()=>{
         })
         .catch(err=>console.log(err))
     }
+
+
     return(
         <>
+        
+        <div className="d-flex flex-justify-center ">
+        <div className="container col-8 card bg-light" >
         { userProfile.id ?
-        <div className="d-flex flex-justify-center">
-        <div className="col-6 container" style={{backgroundColor:'red'}}>
-            <form onSubmit={handleOnSubmit} >
+            <form onSubmit={handleOnSubmit} className="d-flex">
                 <input  type="text" onChange={(e)=>setText(e.target.value)} value={text}/>
-                <input type="file"  onChange={(e)=>setImage(e.target.files[0])} />
-                <button>click</button>
+                <div>
+
+                    <input  type="file"  onChange={(e)=>setImage(e.target.files[0])} />
+
+                    <button className="btn btn-success">응원 메세지 남기기</button>
+                </div>
             </form>
+             : <h1>로그인해서 응원댓글 남기기</h1>}
         </div>
         </div>
-        : <h1>login plz</h1>
-        }
         </>
     )
 }

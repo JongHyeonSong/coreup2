@@ -15,7 +15,9 @@
         <div class="card-body">
             <form action="" method="post" enctype="multipart/form-data">{%csrf_token %}
                 {% bootstrap_form form %}
-                <input type="submit" value="올리기" class="btn btn-danger">
+                <input type="submit" value="제출하기" class="btn btn-danger">
+                <a href="/" class="btn btn-success">돌아가기</a>
+
             </form>
         </div>
     </div>

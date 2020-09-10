@@ -48,7 +48,7 @@ const Chart = ()=>{
     )
     return(
         <div className="row d-flex justify-content-center">
-            <div className="form-control col-6 mt-0">
+            <div className="form-control col-12 mt-0">
             {country ?barChart :lineChart}
 
             </div>

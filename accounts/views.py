@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
+from .forms import ProfileForm
 def loginPage(request):
     form = AuthenticationForm(request, request.POST or None)
     if form.is_valid():
@@ -29,6 +29,19 @@ def registerPage(request):
     context={'form':form}
     return render(request, 'form.html', context)
 
+
+def profilePage(request):
+    profile = request.user.userprofile
+    form = ProfileForm(instance=profile)
+
+    if request.method =="POST":
+        form = ProfileForm(data=request.POST, files=request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context={'form':form}
+    return render(request, 'form.html', context)
 
 
 # from api.models import Country

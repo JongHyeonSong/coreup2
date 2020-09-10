@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link , NavLink} from 'react-router-dom';
+import { countryContext } from './All';
 
 
 const Nav = () => {
+  const {country, dispatch, userProfile} = useContext(countryContext)
+
   return (
     <>
 
@@ -20,9 +23,15 @@ const Nav = () => {
             <div>
         </div>
           </ul>
-        <a href="/accounts/register">회원가입</a>
-        <a href="/accounts/login">로그인</a>
-        <a href="/accounts/logout">로그아웃</a>
+          { !userProfile.id ?  <div>
+          <a className="btn btn-success" href="/accounts/register"> 회원가입 </a>
+          <a className="btn btn-danger" href="/accounts/login"> 로그인 </a> </div> 
+          
+          : <div>
+          <a className="btn btn-success" href="/accounts/logout"> 로그아웃 </a>
+          <a className="btn btn-danger" href="/accounts/profile"> 프로필 </a></div>}
+         
+         
         </div>
       </nav>
       <hr/>

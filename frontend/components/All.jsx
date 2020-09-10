@@ -1,10 +1,12 @@
-import React, { Component, useReducer, useEffect, createContext, useMemo } from 'react';
+import React, { Component, useReducer, useEffect, createContext, useMemo, useRef } from 'react';
 import Nav from './Nav';
 import AllCharts from './charts/AllCharts';
 import AllComments from './comments/AllComments';
 import { BrowserRouter, Route } from 'react-router-dom';
 import CountryPicker from './charts/COuntryPicker';
 import './All.css';
+import Profile from './Profile';
+
 // 명령어
 export const GET_USER = 'GET_USER'
 export const GET_COUNTRIES = 'GET_COUNTRIES'
@@ -103,10 +105,10 @@ const All = ({username, userid})=>{
         fetch('https://covid19.mathdro.id/api/countries')
         .then(res=>res.json())
         .then(data=>{
-            // console.log(data.countries[0].name)
-            // const countries = data.countries.map(item=>item.name)
+            console.log(data.countries[0].name)
+            const countries = data.countries.map(item=>item.name)
             // console.log(countries[0])
-            const countries = ['Japan', 'China']
+            // const countries = ['Japan', 'China']
             dispatch({type:GET_COUNTRIES, countries:countries})
         })
     },[])
@@ -150,20 +152,44 @@ const All = ({username, userid})=>{
         chartData : state.chartData,
         dailyData : state.dailyData,
     }
+
+
+    const onSubmitTest =(e)=>{
+        e.preventDefault()
+        console.log(tmpRef.current.value)
+
+    }
+
+    const tmpRef = useRef()
+    
     return(
         <BrowserRouter>
         <countryContext.Provider value={value}>
 
         <Nav/>
         <CountryPicker/>
-        <div>root계정 유저명: {username} 유저번호: {userid}</div>
-        <div>스테이트 계정 유저명: {state.userProfile.profile_name} 유저번호: {state.userProfile.id} 국가: {state.userProfile.user_nation}</div>
+        {/* <div>root계정 유저명: {username} 유저번호: {userid}</div>
+        <div>스테이트 계정 유저명: {state.userProfile.profile_name} 유저번호: {state.userProfile.id} 국가: {state.userProfile.user_nation}</div> */}
 
-        <Route path = "/comment" render={()=> <AllComments/>} />
-        <Route path = "/chart" render={()=> <AllCharts/>} />
+        
+        <div className="row mx-auto">
+            <div className="col-md-3">
+                <Profile/>
+            </div>
+
+            <div className="col-md-8">
+                <Route path = "/comment" render={()=> <AllComments/>} />
+                <Route path = "/chart" render={()=> <AllCharts/>} />
+            </div>
+        </div>
+
+
 
         </countryContext.Provider>
         </BrowserRouter>
+
+
+
     )
 }
 

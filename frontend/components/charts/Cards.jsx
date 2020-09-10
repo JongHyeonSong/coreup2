@@ -10,7 +10,7 @@ const Cards = ()=>{
 
     return(
         <div className="row justify-content-center">
-            <div className="col-3">
+            <div className="col-4">
                 <div className="col-md">
                     <div className="card text-center text-black mb-3" id="infected">
                         <div className="card-header">
@@ -29,7 +29,7 @@ const Cards = ()=>{
                 </div>
             </div>
             
-            <div className="col-3">
+            <div className="col-4">
                 <div className="col-md">
                     <div className="card text-center text-black mb-3" id="recovered">
                         <div className="card-header">
@@ -48,7 +48,7 @@ const Cards = ()=>{
                 </div>
             </div>
             
-            <div className="col-3">
+            <div className="col-4">
                 <div className="col-md">
                     <div className="card text-center text-black mb-3" id="deaths">
                         <div className="card-header">
