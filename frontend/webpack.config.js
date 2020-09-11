@@ -22,12 +22,12 @@ module.exports ={
             options:{
                 presets:[
                     ['@babel/preset-env',
-                    // {
-                    //     targets:{
-                    //         browsers: ['> 5% in KR', 'last 2 chrome versions'], //https://github.com/browserslist/browserslist
-                    //     },
-                    //     debug:true, //preset-env에 대해서 debug
-                    // }
+                    {
+                        targets:{
+                            browsers: ['> 5% in KR', 'last 2 chrome versions'], //https://github.com/browserslist/browserslist
+                        },
+                        debug:true, //preset-env에 대해서 debug
+                    }
                 ], 
                     '@babel/preset-react'
                 ],

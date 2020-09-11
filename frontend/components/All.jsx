@@ -47,12 +47,10 @@ const reducer = (state, action)=>{
             return {...state, countries:action.countries}
         }
         case COUNTRY_CHANGE:{
-            // console.log(action.changedCountry, 'in All reducer')
             return {...state, country:action.changedCountry}
         }
         case GET_COUNTRY_COMMENT:{
-            console.log(action.countryComment, 'in All reducer')
-            return {...state, comments :[...action.countryComment]}
+            return {...state, nextUrl: action.nextUrl , comments : action.countryComment}
         }
         case SET_CHART_DATA:{
             return {...state, chartData :action.chartData}
@@ -73,10 +71,11 @@ const All = ({username, userid})=>{
     const reGetCountry = (country, dispatch)=>{
         if (country){
             console.log(country, " 나라의 코멘트들을 긁어옵니다")
-            const url = `http://127.0.0.1:8000/api/comment/?country=${country}`
+            let url = `http://127.0.0.1:8000/api/comment/?country=${country}`
             fetch(url)
             .then(res=>res.json())
             .then(data=>{
+               
                 dispatch({type:GET_COUNTRY_COMMENT, countryComment:data})
             })
         }
@@ -105,7 +104,6 @@ const All = ({username, userid})=>{
         fetch('https://covid19.mathdro.id/api/countries')
         .then(res=>res.json())
         .then(data=>{
-            console.log(data.countries[0].name)
             const countries = data.countries.map(item=>item.name)
             // console.log(countries[0])
             // const countries = ['Japan', 'China']

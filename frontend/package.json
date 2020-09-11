@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development --watch"
+    "dev": "webpack --mode development --watch",
+    "prod": "webpack --mode production --devtool hidden-source-map"
+
   },
   "keywords": [],
   "author": "",

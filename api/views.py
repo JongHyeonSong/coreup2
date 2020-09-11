@@ -13,6 +13,8 @@ from rest_framework.response import Response
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 
+from .pagination import CommentPageNumberPagination
+
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
@@ -31,6 +33,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permissions_classes = [permissions.IsAuthenticated]
+    # pagination_class = CommentPageNumberPagination 
 
     parser_classes = (FormParser,MultiPartParser,FileUploadParser,JSONParser) #FormParser,MultiPartParser,FileUploadParser,JSONParser
     # def get(self, request, *args, **kwargs):
@@ -38,7 +41,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     #     return Response({'get':"으로옴"})
 
     def get_queryset(self):
-        print('get aquset @@')
+        print('get_queryset @@')
         country = self.request.GET.get("country") or None
         comment_pk = self.request.GET.get("comment_pk") or None
         qs = super().get_queryset()
@@ -110,7 +113,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
         tep_serializer = UserProfileSerializer(instance=request.user.userprofile)
         print(tep_serializer.data)
-        request.data['user_profile'] = str(Country.objects.filter(name=countryBack).first().id)
+        request.data['user_profile'] = str(request.user.userprofile.id) or '1'
 
         #여기서부터 에러남 
         print(request.data)
@@ -127,3 +130,42 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 #     # parser_classes = (FormParser,MultiPartParser,FileUploadParser,JSONParser) #FormParser,MultiPartParser,FileUploadParser,JSONParser
 
+
+@api_view(["POST"])
+def ThumbUp(request,pk):
+    comment = Comment.objects.filter(id=pk).first()
+    serializer = CommentThumbUpSerializer(
+        instance=comment, data=request.data or None,
+        # user_profile=request.user.userprofile,
+        )
+    if serializer.is_valid():
+        print(request.user.userprofile, comment.likes.all())
+        if request.user.userprofile not in comment.likes.all():
+            comment.likes.add(request.user.userprofile)
+        else:
+            comment.likes.remove(request.user.userprofile)
+        qwer = serializer.save()
+    return Response(serializer.data)
+    
+
+@api_view(["POST"])
+def ThumbDown(request,pk):
+    comment = Comment.objects.filter(id=pk).first()
+    serializer = CommentThumbUpSerializer(
+        instance=comment, data=request.data or None,
+        # user_profile=request.user.userprofile,
+        )
+    if serializer.is_valid():
+        print(request.user.userprofile, comment.unlikes.all())
+        if request.user.userprofile not in comment.unlikes.all():
+            comment.unlikes.add(request.user.userprofile)
+        else:
+            comment.unlikes.remove(request.user.userprofile)
+        qwer = serializer.save()
+    return Response(serializer.data)
+
+@api_view(["DELETE"])
+def deleteComment(request,pk):
+    comment = Comment.objects.get(id=pk)
+    comment.delete()
+    return Response({"message":"삭제완료"})

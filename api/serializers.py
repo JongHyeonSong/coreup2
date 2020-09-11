@@ -51,6 +51,13 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class CommentThumbUpSerializer(serializers.ModelSerializer):
+    likes_count = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Comment
-        fields = ["likes", "unlikes","id", "comment"]
+        fields = ["likes", "unlikes","id", "comment", "likes_count"]
+
+
+    def get_likes_count(self, obj):
+        # print("지금테스트 ", ) /왠지몰라도 엄청나게 리콜됨
+        return obj.likes.count()    

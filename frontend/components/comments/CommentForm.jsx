@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { countryContext, ADD_COMMENT } from '../All'
 
 function getCookie(name) {
@@ -20,13 +20,14 @@ function getCookie(name) {
 const CommentForm = ()=>{
     const {country, dispatch, userProfile, reGetCountry} = useContext(countryContext)
     const [text, setText] = useState('')
-    const [image, setImage] = useState()
-
+    const [image, setImage] = useState(null)
+    const textRef = useRef()
 
     const handleOnSubmit =(e)=>{
         e.preventDefault()
-        if(!country){ alert('희망하는 국가'); return;}
 
+        if(!country){ alert('응원댓글을 남길 국가를 선택해주세요'); return;}
+        if(!image){alert("이미지를 넣어주세요"); return;}
         console.log("submit.....")
 
         const url = `http://127.0.0.1:8000/api/comment/`
@@ -46,12 +47,16 @@ const CommentForm = ()=>{
         .then(res=>{
             console.log(res)
             // dispatch({type:ADD_COMMENT, country:country})
+            resetForm()
             reGetCountry(country, dispatch)
         })
         .catch(err=>console.log(err))
     }
 
-
+    const resetForm = ()=>{
+        setText("")
+        textRef.current.focus()
+    }
     return(
         <>
         
@@ -59,7 +64,7 @@ const CommentForm = ()=>{
         <div className="container col-8 card bg-light" >
         { userProfile.id ?
             <form onSubmit={handleOnSubmit} className="d-flex">
-                <input  type="text" onChange={(e)=>setText(e.target.value)} value={text}/>
+                <input  ref={textRef} type="text" onChange={(e)=>setText(e.target.value)} value={text}/>
                 <div>
 
                     <input  type="file"  onChange={(e)=>setImage(e.target.files[0])} />
