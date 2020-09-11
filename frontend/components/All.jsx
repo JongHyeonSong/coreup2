@@ -10,7 +10,8 @@ import Profile from './Profile';
 
 
 // 명령어
-export const IP_ADDRESS = '127.0.0.1'
+export const IP_ADDRESS = '34.64.113.24'
+// export const IP_ADDRESS = '127.0.0.1'
 
 export const GET_USER = 'GET_USER'
 export const GET_COUNTRIES = 'GET_COUNTRIES'

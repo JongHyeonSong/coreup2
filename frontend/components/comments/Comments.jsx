@@ -74,6 +74,7 @@ const Comment = ({ comment }) => {
         e.preventDefault()
         console.log("삭제 ㄱㄱ")
         const url = `http://${IP_ADDRESS}:8000/delete-comment/${comment.id}/`
+        console.log('현재 url ', url)
         fetch(url,{
             method: 'DELETE',
             headers: {
