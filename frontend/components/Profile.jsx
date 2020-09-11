@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 import { countryContext } from './All'
 import './Profile.css';
-import { MdPeople, FaFlag, FaTransgender } from 'react-icons/fa';
-import { FaBeer } from 'react-icons/fa';
+import { FaFlag, FaTransgender } from 'react-icons/fa';
 import { BsFillPersonFill } from "react-icons/bs";
 
 

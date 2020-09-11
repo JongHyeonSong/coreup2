@@ -4,7 +4,7 @@ import { countryContext } from '../All'
 
 const Chart = ()=>{
     const {country, dispatch, chartData, dailyData} = useContext(countryContext)
-    const { confirmed, recovered, deaths, lastUpdate } = chartData;
+    const { confirmed, recovered, deaths } = chartData;
 
     const lineChart = (
         dailyData.length
