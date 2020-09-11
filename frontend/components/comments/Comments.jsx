@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { countryContext } from '../All'
+import { countryContext, IP_ADDRESS } from '../All'
 import './Comments.css';
 import { FaBeer, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 
@@ -32,7 +32,7 @@ const Comment = ({ comment }) => {
         e.preventDefault()
         // const comment = {id:71}
         console.log('ㅈ좋아요 ㄱㄱ', comment.id)
-        const url = `http://127.0.0.1:8000/thumbUP/${comment.id}/`
+        const url = `http://${IP_ADDRESS}:8000/thumbUP/${comment.id}/`
         fetch(url, {
             method: 'POST',
             headers: {
@@ -53,7 +53,7 @@ const Comment = ({ comment }) => {
         e.preventDefault()
         // const comment = {id:71}
         console.log('ㅈ싫어요 ㄱㄱ', comment.id)
-        const url = `http://127.0.0.1:8000/thumbDown/${comment.id}/`
+        const url = `http://${IP_ADDRESS}:8000/thumbDown/${comment.id}/`
         fetch(url, {
             method: 'POST',
             headers: {
@@ -73,7 +73,7 @@ const Comment = ({ comment }) => {
     const clickDeleteBtn =(e)=>{
         e.preventDefault()
         console.log("삭제 ㄱㄱ")
-        const url = `http://127.0.0.1:8000/delete-comment/${comment.id}/`
+        const url = `http://${IP_ADDRESS}:8000/delete-comment/${comment.id}/`
         fetch(url,{
             method: 'DELETE',
             headers: {

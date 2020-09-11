@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import ProfileForm
 def loginPage(request):
+    print(request.user)
     form = AuthenticationForm(request, request.POST or None)
     if form.is_valid():
         # user = form.save() 에러남 없는함수

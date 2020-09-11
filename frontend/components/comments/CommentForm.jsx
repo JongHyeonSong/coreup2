@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef } from 'react'
-import { countryContext, ADD_COMMENT } from '../All'
+import { countryContext, ADD_COMMENT, IP_ADDRESS } from '../All'
 
 function getCookie(name) {
     let cookieValue = null;
@@ -30,7 +30,7 @@ const CommentForm = ()=>{
         if(!image){alert("이미지를 넣어주세요"); return;}
         console.log("submit.....")
 
-        const url = `http://127.0.0.1:8000/api/comment/`
+        const url = `http://${IP_ADDRESS}:8000/api/comment/`
         const uploadData = new FormData();
         uploadData.append('comment', text)
         uploadData.append('image', image, image.name )

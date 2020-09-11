@@ -41,6 +41,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     #     return Response({'get':"으로옴"})
 
     def get_queryset(self):
+        print('겟 쿼리셋안에서 지금 유저는 ', self.request.user)
         print('get_queryset @@')
         country = self.request.GET.get("country") or None
         comment_pk = self.request.GET.get("comment_pk") or None
@@ -111,7 +112,9 @@ class CommentViewSet(viewsets.ModelViewSet):
         countryBack = request.data['comment_country']
         request.data['comment_country'] =str(Country.objects.filter(name=countryBack).first().id)
 
+        print('지금유저는 ', request.user)
         tep_serializer = UserProfileSerializer(instance=request.user.userprofile)
+
         print(tep_serializer.data)
         request.data['user_profile'] = str(request.user.userprofile.id) or '1'
 

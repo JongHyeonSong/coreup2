@@ -3,11 +3,15 @@ import Nav from './Nav';
 import AllCharts from './charts/AllCharts';
 import AllComments from './comments/AllComments';
 import { BrowserRouter, Route } from 'react-router-dom';
-import CountryPicker from './charts/COuntryPicker';
+import CountryPicker from './charts/CountryPicker';
 import './All.css';
 import Profile from './Profile';
 
+
+
 // 명령어
+export const IP_ADDRESS = '127.0.0.1'
+
 export const GET_USER = 'GET_USER'
 export const GET_COUNTRIES = 'GET_COUNTRIES'
 export const COUNTRY_CHANGE = 'COUNTRY_CHANGE'
@@ -71,7 +75,7 @@ const All = ({username, userid})=>{
     const reGetCountry = (country, dispatch)=>{
         if (country){
             console.log(country, " 나라의 코멘트들을 긁어옵니다")
-            let url = `http://127.0.0.1:8000/api/comment/?country=${country}`
+            let url = `http://${IP_ADDRESS}:8000/api/comment/?country=${country}`
             fetch(url)
             .then(res=>res.json())
             .then(data=>{
@@ -91,7 +95,7 @@ const All = ({username, userid})=>{
 
     useEffect(()=>{
         if(userid !== "None"){
-            let url = `http://127.0.0.1:8000/api/user_profile/${userid}/`
+            let url = `http://${IP_ADDRESS}:8000/api/user_profile/${userid}/`
             fetch(url)
             .then(res=>res.json())
             .then(data=>{
