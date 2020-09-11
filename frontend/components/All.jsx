@@ -77,6 +77,7 @@ const All = ({username, userid})=>{
         if (country){
             console.log(country, " 나라의 코멘트들을 긁어옵니다")
             let url = `http://${IP_ADDRESS}:8000/api/comment/?country=${country}`
+            console.log('지금 나라는 ', url)
             fetch(url)
             .then(res=>res.json())
             .then(data=>{
