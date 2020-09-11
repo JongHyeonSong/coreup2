@@ -11,7 +11,7 @@ import Profile from './Profile';
 
 // 명령어
 export const IP_ADDRESS = '34.64.113.24'
-// export const IP_ADDRESS = '127.0.0.1'
+// export const IP_ADDRESS = '127.0.0.1:8000'
 
 export const GET_USER = 'GET_USER'
 export const GET_COUNTRIES = 'GET_COUNTRIES'
@@ -76,7 +76,7 @@ const All = ({username, userid})=>{
     const reGetCountry = (country, dispatch)=>{
         if (country){
             console.log(country, " 나라의 코멘트들을 긁어옵니다")
-            let url = `http://${IP_ADDRESS}:8000/api/comment/?country=${country}`
+            let url = `http://${IP_ADDRESS}/api/comment/?country=${country}`
             console.log('지금 나라는 ', url)
             fetch(url)
             .then(res=>res.json())
@@ -97,7 +97,7 @@ const All = ({username, userid})=>{
 
     useEffect(()=>{
         if(userid !== "None"){
-            let url = `http://${IP_ADDRESS}:8000/api/user_profile/${userid}/`
+            let url = `http://${IP_ADDRESS}/api/user_profile/${userid}/`
             fetch(url)
             .then(res=>res.json())
             .then(data=>{

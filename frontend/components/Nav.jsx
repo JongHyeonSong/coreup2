@@ -10,7 +10,7 @@ const Nav = () => {
     <>
 
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a href={`http://${IP_ADDRESS}:8000/`}><img className="w-1" alt="covid-19" src="/static/images/coroan.png"></img></a>
+        <a href={`http://${IP_ADDRESS}/`}><img className="w-1" alt="covid-19" src="/static/images/coroan.png"></img></a>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">

@@ -30,7 +30,7 @@ const CommentForm = ()=>{
         if(!image){alert("이미지를 넣어주세요"); return;}
         console.log("submit.....")
 
-        const url = `http://${IP_ADDRESS}:8000/api/comment/`
+        const url = `http://${IP_ADDRESS}/api/comment/`
         const uploadData = new FormData();
         uploadData.append('comment', text)
         uploadData.append('image', image, image.name )
