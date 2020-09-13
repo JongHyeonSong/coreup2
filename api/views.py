@@ -107,19 +107,10 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        #포린키 추가
-        print(request.data)
         countryBack = request.data['comment_country']
         request.data['comment_country'] =str(Country.objects.filter(name=countryBack).first().id)
-
-        print('지금유저는 ', request.user)
-        tep_serializer = UserProfileSerializer(instance=request.user.userprofile)
-
-        print(tep_serializer.data)
         request.data['user_profile'] = str(request.user.userprofile.id) or '1'
 
-        #여기서부터 에러남 
-        print(request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)

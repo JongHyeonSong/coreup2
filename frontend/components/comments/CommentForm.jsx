@@ -34,8 +34,7 @@ const CommentForm = ()=>{
         const uploadData = new FormData();
         uploadData.append('comment', text)
         uploadData.append('image', image, image.name )
-        // uploadData.append('user_profile', userProfile.id) //현재유저
-        uploadData.append('comment_country',country )  //중국 일단고정
+        uploadData.append('comment_country',country ) 
 
         fetch(url,{
             method:"POST",
@@ -46,7 +45,6 @@ const CommentForm = ()=>{
         })
         .then(res=>{
             console.log(res)
-            // dispatch({type:ADD_COMMENT, country:country})
             resetForm()
             reGetCountry(country, dispatch)
         })

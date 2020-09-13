@@ -30,6 +30,7 @@ const Comment = ({ comment }) => {
 
     const clickThumbUp = (e) => {
         e.preventDefault()
+        if(!userProfile.id){ alert("로그인 해주세요"); return;}
         // const comment = {id:71}
         console.log('ㅈ좋아요 ㄱㄱ', comment.id)
         const url = `http://${IP_ADDRESS}/thumbUP/${comment.id}/`
@@ -51,6 +52,8 @@ const Comment = ({ comment }) => {
 
     const clickThumbDown = (e) => {
         e.preventDefault()
+        if(!userProfile.id){ alert("로그인 해주세요"); return;}
+
         // const comment = {id:71}
         console.log('ㅈ싫어요 ㄱㄱ', comment.id)
         const url = `http://${IP_ADDRESS}/thumbDown/${comment.id}/`
@@ -103,13 +106,11 @@ const Comment = ({ comment }) => {
 
                                 <FaBeer />작성자:  {comment.comment_username} {timesince} <br />
                                 </div>
-                                { userProfile.id 
-                                ? <div className="col-2 d-flex ">
+                                <div className="col-2 d-flex ">
                                     <FaThumbsUp  onClick={clickThumbUp} /><span>{comment.likes_count}</span>
                                     {" "}
                                     <FaThumbsDown  onClick={clickThumbDown} /><span>{comment.unlikes_count}</span>
                                 </div>
-                                : <p>not logedin</p>}
 
                                 { userProfile.id == comment.user_profile &&
                                 <div className="col-2"><button onClick={clickDeleteBtn}className="btn btn-sm btn-outline-danger">삭제</button></div>
@@ -133,11 +134,6 @@ const Comment = ({ comment }) => {
 const Comments = () => {
     const { country, dispatch, comments , reGetCountry} = useContext(countryContext)
 
-
-    // const clickNextUrl = (e)=>{
-    //     e.preventDefault()
-    //     reGetCountry(country, dispatch,nextUrl)
-    // }
     return (
         <>
             <hr />

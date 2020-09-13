@@ -10,8 +10,9 @@ import Profile from './Profile';
 
 
 // 명령어
-export const IP_ADDRESS = '35.232.243.209' //coreup
-// export const IP_ADDRESS = '127.0.0.1:8000'
+// export const IP_ADDRESS = '35.232.243.209' //coreup
+// export const IP_ADDRESS = '127.0.0.1'
+export const IP_ADDRESS = '127.0.0.1:8000'
 
 export const GET_USER = 'GET_USER'
 export const GET_COUNTRIES = 'GET_COUNTRIES'
